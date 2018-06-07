@@ -1,42 +1,13 @@
 <!DOCTYPE html>
-<style>
-/* Style elements via id */
-#name {
-    background-color: lightblue;
-    color: black;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Style elements via class name */
-.clickLabel {
-    background-color: tomato;
-    color: white;
-    padding: 10px;
-} 
-</style>
-
-
 <html lang="en">
 <head>
 	<title>CatClicker</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
-<body id="top">
-	<div class="wrapper row0">
-		<p1>
-			<h1 id="name">Cat1</h1>
-		</p1>
-		
-		<img id="cat1" src="./images/cat1.jpg" alt="Cute Cat for Inspiration">
-		<h1 class="clickLabel">clicked: </h1>
-		
-		<p2>
-			<h1 id="name">Cat2</h1>
-		</p2>
-		
-		<img id="cat2" src="./images/cat2.jpg" alt="Cute Cat for Inspiration">
-		<h1 class="clickLabel">clicked: </h1>
-	</div>
+<body>
+	<ul id="catList" class="catListStyle">
+	</ul>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="./scripts/app.js"></script>
 </body>
-<script src="./scripts/app.js"></script>
 </html>
