@@ -14,3 +14,12 @@
     margin:0;
     padding: 0;
 }
+.catDetailStyle {
+    display: inline-block;
+    width: 250px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding:10px;
+    list-style-type: none;
+    background-color: #cde;
+}

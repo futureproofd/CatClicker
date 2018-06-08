@@ -7,7 +7,7 @@ $(function(){ //IIFE
         
         init: function(){
             if(this.cats.length == 0){
-                var newId = ++model.catsId;
+                var newId = model.catsId;
                 this.cats.push({
                     id : newId,
                     image : './images/cat1.jpg',
@@ -33,7 +33,12 @@ $(function(){ //IIFE
         
         getAllCats : function() {
             return this.cats;
+        },
+        
+        getCat : function(id){
+            return this.cats[id];
         }
+        
 	};
 	
 	//2 views - cat list - and cat image w clicks
@@ -46,18 +51,41 @@ $(function(){ //IIFE
         
         render : function(){
             var htmlStr = '';
+
             controller.getCats().forEach(function(cat){
-                                         htmlStr += '<li onclick=catClicked()>'+cat.name+'<br>'+'clicks: '+cat.clicks+
-                                                    '<br>'+'<img src='+cat.image+'>'+
-                                                    '</li>';
+                                            htmlStr += '<li>'+cat.name+'<br>'+'clicks: '+cat.clicks+'<button id='+cat.id+'>View Detail</button></li>';
                                          });
-            this.catList.html(htmlStr);
+
+           this.catList.html(htmlStr);
+           controller.getCats().forEach(function(cat){
+                            this.button = $('#'+cat.id);
+                            this.button.click(function(){
+                                                controller.getSingleCat(cat);
+                                                });
+                                        });
         }  
     };
     
     var detailView = {
-        init : function(){
-            //get 
+        init : function(cat){
+            this.catDetail = $('#catDetail');
+            detailView.render(cat);
+        },
+        
+        render : function(cat){
+            var htmlStr = '';
+            htmlStr +=   '<img id='+cat.id+'img' +' src='+cat.image+'>'+'<br>';
+            this.catDetail.html(htmlStr);
+            this.catDetailImg = $('#'+cat.id+'img');
+            this.catDetailImg.click(function(){
+               controller.setClick(cat.id);
+            });
+            this.renderClick(cat.clicks);
+        },
+        
+        renderClick : function(clickCount){
+            this.catClicks = $('#catClicks');
+            this.catClicks.html(clickCount);
         }
         
     };
@@ -68,11 +96,19 @@ $(function(){ //IIFE
         init : function() {
             model.init();
             listView.init();
-            detailView.init();
         },
         
         getCats : function(){
             return model.getAllCats();
+        },
+        
+        getSingleCat : function(cat){
+            detailView.init(cat);
+        },
+        
+        setClick : function(id){
+            var cat = model.getCat(id);
+            detailView.renderClick(cat.clicks++);
         }
     };
     
