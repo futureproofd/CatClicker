@@ -78,10 +78,14 @@ var detailView = {
         this.catNameElem = document.getElementById('catName');
         this.catImgElem = document.getElementById('catImg');
         this.catCountElem = document.getElementById('catCount');
+        this.adminBtnElem = document.getElementById('btnAdmin');
 
         //register clicker
         this.catImgElem.addEventListener('click', function(){
             controller.setClick();
+        })
+        this.adminBtnElem.addEventListener('click', function(){
+            controller.toggleAdmin();
         })
         this.render();
     },
@@ -94,6 +98,22 @@ var detailView = {
     }
 
 };
+
+var adminView = {
+    init : function(){
+        this.catAdminName = document.getElementById('adminCatName');
+        this.submitBtnElem =document.getElementById('btnSubmit');
+        this.submitBtnElem.addEventListener('click',function(){
+            this.currentCat.name = this.catAdminName.textContent;
+        })
+        this.render();
+    },
+    
+    render: function(){
+        var currentCat = controller.getCurrentCat();
+        this.catAdminName.textContent = this.currentCat.name;
+    }
+}
 
 
 /*~~~~~~~~~~~~~Controller~~~~~~~~~~~~~*/
@@ -119,7 +139,13 @@ var controller = {
     setClick : function(){
         model.currentCat.clicks++;
         detailView.render();
+    },
+    
+    toggleAdmin : function(){
+        adminView.init();
     }
+    
+    
 };
 
 //Run first
