@@ -101,17 +101,24 @@ var detailView = {
 
 var adminView = {
     init : function(){
-        this.catAdminName = document.getElementById('adminCatName');
-        this.submitBtnElem =document.getElementById('btnSubmit');
-        this.submitBtnElem.addEventListener('click',function(){
-            this.currentCat.name = this.catAdminName.textContent;
-        })
+
         this.render();
     },
     
     render: function(){
-        var currentCat = controller.getCurrentCat();
-        this.catAdminName.textContent = this.currentCat.name;
+        var adminCatName = document.getElementById('adminCatName');
+        var submitBtnElem = document.getElementById('btnSubmit');
+        //make visible
+        adminCatName.style.display = 'block';
+        submitBtnElem.style.display = 'block';
+        adminCatName.value = controller.getCurrentCat().name;
+        
+        submitBtnElem.addEventListener('click',function(){
+            var submit =  document.getElementById('btnSubmit');
+            controller.setCatName(adminCatName.value);
+            adminCatName.style.display = 'none';
+            submitBtnElem.style.display = 'none';
+        });
     }
 }
 
@@ -134,6 +141,11 @@ var controller = {
 
     setCurrentCat : function(cat){
       model.currentCat = cat;  
+    },
+    
+    setCatName : function(newName){
+        model.currentCat.name = newName;
+        detailView.render();
     },
 
     setClick : function(){
